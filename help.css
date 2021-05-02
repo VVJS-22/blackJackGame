@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  height: calc(100%+20px);
+  background: radial-gradient(
+      circle,
+      rgba(19, 79, 36, 1) 35%,
+      rgba(23, 51, 10, 1) 77%
+    )
+    no-repeat;
+  color: white;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: space-between;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+h1 {
+  color: rgb(219, 193, 193);
+}
+
+a:link, a:visited, a:hover, a:active  {
+  color: rgb(63, 62, 62);
+  text-decoration: none;
+  padding: 5px;
+}
+
