@@ -32,12 +32,18 @@ function randomcard() {
  return blackjackGame['cards'][randomIndex];
 }
 
-function blackjackHit() {
+async function blackjackHit() {
  if (blackjackGame['isStand'] === false) {
   let card = randomcard();
   showcard(card, YOU);
   updateScore(card, YOU);
   showScore(YOU);
+  if (YOU['score'] > 21) {
+    await sleep(1000);
+    blackjackGame['logicOver'] = false;
+    blackjackGame['isStand'] = true;
+    dealerlogic();
+  }
  }
 }
 
@@ -58,7 +64,7 @@ function blackjackDeal() {
   dealCard (DEALER);
   let resultDiv = document.getElementById('blackjack-result');
   resultDiv.innerText = "Let's Play";
-  resultDiv.style.color = 'black';
+  resultDiv.style.color = 'white';
   blackjackGame['turnsOver'] = false;
   blackjackGame['logicOver'] = false;
  }
@@ -101,7 +107,7 @@ async function dealerlogic() {
       showcard(card, DEALER);
       updateScore(card, DEALER);
       showScore(DEALER);
-      await sleep(1000);
+      await sleep(2000);
     } 
     blackjackGame['turnsOver'] = true;
     let winner = computeWinner();
@@ -116,7 +122,6 @@ function computeWinner() {
 
   if (YOU['score'] <=21) {
     if (YOU['score'] > DEALER['score'] || (DEALER['score'] > 21)) {
-      console.log('You win');
       winner = YOU;
     }else if (YOU['score'] < DEALER['score']) {
       console.log('You lost');
@@ -125,12 +130,10 @@ function computeWinner() {
       console.log('You draw');
     }
   }else if (YOU['score'] > 21 && DEALER['score'] <= 21) {
-    console.log('You lost');
     winner = DEALER;
   } else if (YOU['score'] > 21 && DEALER['score'] > 21) {
     console.log('You draw');
   }
-  console.log(winner);
   return winner;
 }
 
